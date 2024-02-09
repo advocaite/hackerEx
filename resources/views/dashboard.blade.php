@@ -23,7 +23,7 @@
             </div>
         </div>
         <div id="breadcrumb">
-            <a href="index" title="Go to Home" class="tip-bottom"><i class="fa fa-home"></i> Home</a>
+            <a href="{{ route('index_in') }}" title="Go to Home" class="tip-bottom"><i class="fa fa-home"></i> Home</a>
         </div>
         <div class="container-fluid">
             <div class="row-fluid">
@@ -84,7 +84,7 @@
                                     <div class="widget-title">
                                         <span class="icon"><i class="he16-news"></i></span>
                                         <h5>News</h5>
-                                        <a href="news"><span class="label">View all</span></a>
+                                        <a href="{{ route('news.index') }}"><span class="label">View all</span></a>
                                     </div>
                                     <div class="widget-content nopadding border">
                                         <table class="table table-cozy table-bordered table-striped">

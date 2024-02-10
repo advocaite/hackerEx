@@ -4,6 +4,8 @@ namespace App\Traits;
 use App\Models\hardware;
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Session;
+use DateTime;
 
 trait RankingTrait
 {
@@ -20,5 +22,22 @@ trait RankingTrait
         return $users;
     }
 
+    public function updateTimePlayed()
+    {
+        $now = new DateTime('now');
 
+        // Check if LAST_CHECK session variable exists
+        if (Session::has('LAST_CHECK')) {
+            $lastCheck = Session::get('LAST_CHECK');
+            $diff = $now->diff($lastCheck);
+
+            $timePlayed = ($diff->i * 60) + $diff->s;
+            $corrTime = round(($timePlayed / 60), 1);
+
+            // Update timePlaying in users_stats table
+            DB::table('users_stats')
+                ->where('uid', Session::get('id'))
+                ->increment('timePlaying', $corrTime);
+        }
+    }
 }

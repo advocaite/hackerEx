@@ -36,7 +36,7 @@ trait RankingTrait
 
             // Update timePlaying in users_stats table
             DB::table('users_stats')
-                ->where('uid', Session::get('id'))
+                ->where('uid', session('id'))
                 ->increment('timePlaying', $corrTime);
         }
     }

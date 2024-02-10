@@ -30,8 +30,10 @@ class CheckUserActivity
             $checkDiff = $curDate->diff($lastCheck);
 
             if ($checkDiff->invert == 1 && $checkDiff->i < 2) {
-                // Update user activity (assuming $ranking is defined elsewhere)
+                // Update user activity
                 $this->updateTimePlayed();
+            } else {
+                return $next($request);
             }
         }
 

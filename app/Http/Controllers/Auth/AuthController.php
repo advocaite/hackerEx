@@ -68,6 +68,7 @@ class AuthController extends Controller
         //var_dump(Auth::attempt($credentials));die();exit();
         if ($credentials) {
             Auth::loginUsingId($credentials->id, $remember = true);
+            session(['id' => $credentials->id]);
             return redirect()->intended('dashboard')
                 ->withSuccess('You have Successfully loggedin');
         } else {
@@ -96,6 +97,7 @@ class AuthController extends Controller
             UsersLanguage::create(['userID' => $newUser->id]);
 
             Auth::loginUsingId($newUser->id, $remember = true);
+            session(['id' => $newUser->id]);
             return redirect()->intended('dashboard')
                 ->withSuccess('You have Successfully loggedin');
 
@@ -117,6 +119,8 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
+            $user = User::where('email', $request->email)->first();
+            session(['id' => $user->id]);
             return redirect()->intended('dashboard')
                 ->withSuccess('You have Successfully loggedin');
         }
@@ -139,7 +143,7 @@ class AuthController extends Controller
 
         $data = $request->all();
         $check = $this->create($data);
-
+        session(['id' => $check->id]);
         return redirect("dashboard")->withSuccess('Great! You have Successfully loggedin');
     }
 

@@ -20,10 +20,10 @@
     @push('js')
         <script type="text/javascript">
             var indexdata = {
-                ip: '251.91.242.181',
-                pass: 'u70hTB9s',
-                up: '7 days and 6 hours',
-                chg: 'change'
+                ip: '{{ $gdata['ip'] }}',
+                pass: '{{ $gdata['pass'] }}',
+                up: '{{ $gdata['up'] }}',
+                chg: '{{ $gdata['chg'] }}'
             };
         </script>
     @endpush
@@ -31,7 +31,10 @@
     @include('layout.footer')
 
     @stack('js')
+
+
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/tooltip.js') }}"></script>
     <script src="{{ asset('js/typed.js') }}"></script>
     <script src="{{ asset('js/jquery.validate.js') }}"></script>

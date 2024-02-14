@@ -11,6 +11,53 @@ use Illuminate\Http\Request;
 trait RankingTrait
 {
 
+    public function getPlayerData()
+{
+    $id = auth()->id(); // Get the authenticated user's ID
+
+    // Get the user's gameIP and gamePass
+    $user = DB::table('users')
+        ->select('gameIP', 'gamePass')
+        ->where('id', $id)
+        ->first();
+
+    // Get the uptime
+    $uptimeInSeconds = DB::table('users_stats')
+        ->selectRaw('TIMESTAMPDIFF(SECOND, lastIpReset, NOW()) AS uptime')
+        ->where('uid', $id)
+        ->value('uptime');
+
+    $reset = new DateTime('now');
+    $reset->modify('-'.$uptimeInSeconds.' seconds');
+    $now = new DateTime('now');
+    $diff = $now->diff($reset);
+
+    $str = '';
+
+    if($diff->d > 0){
+        $str = sprintf(ngettext("%d day", "%d days", $diff->d), $diff->d);
+        if($diff->h != 0 || $diff->i != 0){
+            $str .= ' '._('and').' ';
+        }
+    }
+
+    if($diff->h > 0){
+        $str .= sprintf(ngettext("%d hour", "%d hours", $diff->h), $diff->h);
+    } else if($diff->i > 0){
+        $str .= sprintf(ngettext("%d minute", "%d minutes", $diff->i), $diff->i);
+    }
+
+    // Combine the data
+   $data = array();
+
+    $data['ip'] = long2ip($user->gameIP);
+    $data['pass'] = $user->gamePass;
+    $data['up'] = $str;
+    $data['chg'] = _('change');
+
+    return $data;
+}
+
     public function displayRanking($display)
     {
         $table = 'ranking_';

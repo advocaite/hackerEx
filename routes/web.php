@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\gameDashboard;
 use App\Http\Controllers\NewsController;
-
+use App\Http\Controllers\AjaxController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +21,10 @@ use App\Http\Controllers\NewsController;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/ajax/getStatic', [AjaxController::class, 'getStatic']);
+Route::get('/ajax/getCommon', [AjaxController::class, 'getCommon']);
+Route::get('/ajax/getPwdInfo', [AjaxController::class, 'getPwdInfo']);
 Route::get('/profile/{id}', 'ProfileController@show')->name('profile.show');
 Route::get('/stats', 'StatsController@show')->name('stats.show');
 Route::get('/ranking/{display}', [RankingController::class, 'showRanking'])->name('ranking.indexget');

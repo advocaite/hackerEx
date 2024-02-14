@@ -5,7 +5,7 @@
 @section('content')
     <div id="content">
         <div id="content-header">
-            <h1>Control Panel</h1>
+            <h1>News</h1>
 
             <div class="header-ip hide-phone">
                 <div style="text-align: right;">
@@ -28,7 +28,14 @@
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span12">
-                    <div class="span8">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <ul class="nav nav-tabs">
+                                <li class="link active"><a href="news.php"><span class="he16-news icon-tab"></span>News</a>
+                                </li>
+                                <a href="#"><span class="label label-info">Help</span></a>
+                            </ul>
+                        </div>
                         <ul class="recent-posts">
                             <li>
                                 <div class="mail-thumb pull-left">
@@ -42,14 +49,13 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="mission-margin"></div>
-                        <a href="{{ route('news.index') }}" class="btn btn-info">Back to news</a>
                     </div>
-                @endsection
+                </div>
+            @endsection
 
 
-                @push('js')
-                    <script type="4c0d3a1361c5b59d1022e48d-text/javascript">
+            @push('js')
+                <script type="4c0d3a1361c5b59d1022e48d-text/javascript">
     var indexdata = {
         ip: '251.91.242.181',
         pass: 'u70hTB9s',
@@ -57,4 +63,4 @@
         chg: 'change'
     };
 </script>
-                @endpush
+            @endpush

@@ -27,18 +27,30 @@
         </div>
         <div class="container-fluid">
             <div class="row-fluid">
-                <table class="table table-cozy table-bordered table-striped">
-                    <tbody>
-                        @foreach ($newsInfo as $news)
-                            <tr>
-                                <td>
-                                    <a
-                                        href="{{ route('news.show', ['id' => $news->id]) }}">{{ $news->title }}</a></span><span
-                                        class="small">{{ $news->date }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                <div class="span12">
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <ul class="nav nav-tabs">
+                                <li class="link active"><a href="news.php"><span class="he16-news icon-tab"></span>News</a>
+                                </li>
+                                <a href="#"><span class="label label-info">Help</span></a>
+                            </ul>
+                        </div>
+                        <table class="table table-cozy table-bordered table-striped">
+                            <tbody>
+                                @foreach ($newsInfo as $news)
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="{{ route('news.show', ['id' => $news->id]) }}">{{ $news->title }}</a></span><span
+                                                class="small">{{ $news->date }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                    </div>
+                </div>
+
                 </table>
             @endsection
 

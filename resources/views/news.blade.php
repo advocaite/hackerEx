@@ -5,7 +5,7 @@
 @section('content')
     <div id="content">
         <div id="content-header">
-            <h1>Control Panel</h1>
+            <h1>News</h1>
             <!-- Header information -->
         </div>
         <div id="breadcrumb">

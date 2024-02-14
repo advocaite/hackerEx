@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RankingController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
@@ -20,6 +21,10 @@ use App\Http\Controllers\NewsController;
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/profile/{id}', 'ProfileController@show')->name('profile.show');
+Route::get('/stats', 'StatsController@show')->name('stats.show');
+Route::get('/ranking/{display}', [RankingController::class, 'showRanking'])->name('ranking.indexget');
+Route::get('/ranking', [RankingController::class, 'showRanking'])->name('ranking.index');
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 Route::get('login', [AuthController::class, 'index'])->name('login');

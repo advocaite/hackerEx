@@ -7,7 +7,7 @@ use Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Pagination\Paginator;
 use DateTime;
-
+use Illuminate\Http\Request;
 trait RankingTrait
 {
 
@@ -32,7 +32,7 @@ trait RankingTrait
                 $table .= 'software';
                 $page = request()->has('orderby') ? 'show=software&orderby=' . request('orderby') . '&page' : 'show=software&page';
                 $view = 'sections.ranking.ranking-software';
-                $rankData = DB::table($table)->paginate(15);
+                $rankData = $this->createRankSoft(request());
                 break;
             case 'ddos':
                 $table .= 'ddos';
@@ -56,6 +56,46 @@ trait RankingTrait
 
     }
 
+    public function createRankSoft(Request $request)
+{
+    $joinStr = ' INNER JOIN software_research ON ranking_software.softID = software_research.softID';
+    $orderStr = '';
+
+    $extArray = ['crc', 'hash', 'psc', 'fwl', 'hdr', 'skr', 'av', 'vspam', 'vwarez', 'vdoos', 'vcol', 'vbrk', 'exp', 'nmap', 'ana', 'doom'];
+
+    if ($request->has('orderby') && in_array($request->orderby, $extArray)) {
+        $extID = $this->ext2int($request->orderby);
+        $orderStr = ' WHERE software_research.softwareType = '.$extID.' ';
+        $joinStr = ' INNER JOIN software_research ON ranking_software.softID = software_research.softID WHERE software_research.softwareType = '.$extID.' ';
+    }
+
+    $query = DB::table('ranking_software')
+        ->join('software', 'ranking_software.softID', '=', 'software.id')
+        ->selectRaw('ranking_software.softID, software.softname, software.userID, software.softType, software.softversion')
+        ->orderBy('ranking_software.id', 'asc');
+
+    if (!empty($orderStr)) {
+        $query = $query->whereRaw($orderStr);
+    }
+
+    $rankData = $query->paginate(100);
+
+    return $rankData;
+}
+
+
+
+    public function createRankDDoS()
+    {
+        $rankData = DB::table('ranking_ddos')
+            ->join('round_ddos', 'ranking_ddos.ddosID', '=', 'round_ddos.id')
+            ->join('users', 'users.id', '=', 'round_ddos.attID')
+            ->orderBy('ranking_ddos.rank', 'asc')
+            ->select('round_ddos.attID', 'users.login as attUser', 'round_ddos.vicID', 'round_ddos.power', 'round_ddos.servers')
+            ->paginate(10);
+
+        return $rankData;
+    }
     public function createRankClans()
     {
             $rankData = DB::table('ranking_clan')

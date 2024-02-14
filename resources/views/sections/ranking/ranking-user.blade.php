@@ -1,11 +1,11 @@
 @extends('layout.layout')
 @section('title')
-    Ranking
+    Rankings
 @endsection
 @section('content')
     <div id="content">
         <div id="content-header">
-            <h1>Ranking</h1>
+            <h1>User Rankings</h1>
 
             <div class="header-ip hide-phone">
                 <div style="text-align: right;">

@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('title')
-    Ranking
+    Rankings
 @endsection
 @section('content')
     <div id="content">

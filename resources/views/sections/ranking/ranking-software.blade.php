@@ -5,7 +5,7 @@
 @section('content')
     <div id="content">
         <div id="content-header">
-            <h1>Clan Rankings</h1>
+            <h1>Software Rankings</h1>
 
             <div class="header-ip hide-phone">
                 <div style="text-align: right;">
@@ -33,10 +33,11 @@
                             <li class="link "><a href="{{ route('ranking.indexget', ['display' => 'user']) }}"><span
                                         class="icon-tab he16-rank_user"></span><span class="hide-phone">User
                                         ranking</span></a></li>
-                            <li class="link active"><a href="{{ route('ranking.indexget', ['display' => 'clan']) }}"><span
+                            <li class="link"><a href="{{ route('ranking.indexget', ['display' => 'clan']) }}"><span
                                         class="icon-tab he16-rank_clan"></span><span class="hide-phone">Clan
                                         ranking</span></a></li>
-                            <li class="link"><a href="{{ route('ranking.indexget', ['display' => 'software']) }}"><span
+                            <li class="link active"><a
+                                    href="{{ route('ranking.indexget', ['display' => 'software']) }}"><span
                                         class="icon-tab he16-rank_software"></span><span class="hide-phone">Software
                                         ranking</span></a></li>
                             <li class="link"><a href="{{ route('ranking.indexget', ['display' => 'ddos']) }}"><span
@@ -49,10 +50,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th><?php echo _('Clan Name'); ?></th>
-                                    <th><?php echo _('Power'); ?></th>
-                                    <th><?php echo _('Win / Loses'); ?></th>
-                                    <th><?php echo _('Members'); ?></th>
+                                    <th><?php echo _('Software Name'); ?></th>
+                                    <th><?php echo _('Version'); ?></th>
+                                    <th><?php echo _('Type'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>

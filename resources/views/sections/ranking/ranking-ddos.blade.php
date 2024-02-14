@@ -5,7 +5,7 @@
 @section('content')
     <div id="content">
         <div id="content-header">
-            <h1>Clan Rankings</h1>
+            <h1>Ddos Rankings</h1>
 
             <div class="header-ip hide-phone">
                 <div style="text-align: right;">
@@ -33,13 +33,13 @@
                             <li class="link "><a href="{{ route('ranking.indexget', ['display' => 'user']) }}"><span
                                         class="icon-tab he16-rank_user"></span><span class="hide-phone">User
                                         ranking</span></a></li>
-                            <li class="link active"><a href="{{ route('ranking.indexget', ['display' => 'clan']) }}"><span
+                            <li class="link"><a href="{{ route('ranking.indexget', ['display' => 'clan']) }}"><span
                                         class="icon-tab he16-rank_clan"></span><span class="hide-phone">Clan
                                         ranking</span></a></li>
                             <li class="link"><a href="{{ route('ranking.indexget', ['display' => 'software']) }}"><span
                                         class="icon-tab he16-rank_software"></span><span class="hide-phone">Software
                                         ranking</span></a></li>
-                            <li class="link"><a href="{{ route('ranking.indexget', ['display' => 'ddos']) }}"><span
+                            <li class="link active"><a href="{{ route('ranking.indexget', ['display' => 'ddos']) }}"><span
                                         class="icon-tab he16-rank_ddos"></span><span class="hide-phone">DDoS
                                         Ranking</span></a></li>
                         </ul>
@@ -49,10 +49,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th><?php echo _('Clan Name'); ?></th>
+                                    <th><?php echo _('Attacker'); ?></th>
+                                    <th><?php echo _('Victim'); ?></th>
                                     <th><?php echo _('Power'); ?></th>
-                                    <th><?php echo _('Win / Loses'); ?></th>
-                                    <th><?php echo _('Members'); ?></th>
+                                    <th><?php echo _('Servers used'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,48 +61,23 @@
                                         <td>
                                             <center>{{ $i + 1 }}</center>
                                         </td>
-                                        <td><a href="clan?id={{ $rank->clanID }}">[{{ $rank->nick }}]
-                                                {{ $rank->name }}</a>
-                                            @if ($rank->clanID1)
-                                                <span class="r-war"></span>
-                                            @endif
+                                        <td><a
+                                                href="{{ route('profile.show', ['id' => $rank->attID]) }}">{{ $rank->attUser }}</a>
                                         </td>
+                                        <td>Unknown</td>
                                         <td>
                                             <center>{{ $rank->power }}</center>
                                         </td>
                                         <td>
-                                            <center>
-                                                <font color="green">{{ $rank->won }}</font> / <font color="red">
-                                                    {{ $rank->lost }}</font>
-                                                @if ($rank->won != 0 || $rank->lost != 0)
-                                                    <span
-                                                        class="small">{{ round(($rank->won / ($rank->lost + $rank->won)) * 100) }}
-                                                        %</span>
-                                                @endif
-                                            </center>
-                                        </td>
-                                        <td>
-                                            <center>{{ $rank->slotsUsed }}</center>
+                                            <center>{{ $rank->servers }}</center>
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
-                        <a class="btn btn-success" href="{{ route('stats.show') }}">{{ __('View detailed Rank') }}</a>
+
 
                         <!-- Display the pagination links -->
                         {{ $rankData->links() }}
                     </div>
                 @endsection
-
-                @push('js')
-                    <script type="4c0d3a1361c5b59d1022e48d-text/javascript">
-    var indexdata = {
-        ip: '251.91.242.181',
-        pass: 'u70hTB9s',
-        up: '7 days and 6 hours',
-        chg: 'change'
-    };
-</script>
-                @endpush
